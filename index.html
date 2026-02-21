@@ -211,8 +211,8 @@
     <p>Upload an audio file and NoteScribe will detect every note using Spotify's Basic Pitch model, build a MIDI representation, and render beautifully formatted sheet music.</p>
   </section>
 
-  <!-- UPLOAD -->
-  <section class="upload-section" style="margin-bottom:50px">
+  <!-- Upload Audio File Section - Input -->
+  <section class="upload-section" style="margin-bottom:48px">
     <div class="section-label">01 — Upload Audio</div>
     <div class="upload-zone" id="upload-zone">
       <span class="upload-icon">♪</span>
@@ -237,7 +237,7 @@
     </div>
   </section>
 
-  <!-- OPTIONS -->
+  <!-- Sheet Music Format - Output -->
   <section style="margin-bottom:24px">
     <div class="section-label">02 — Configure Transcription</div>
     <div class="options-grid">
@@ -284,20 +284,17 @@
     </div>
   </section>
 
-  <!-- TRANSCRIBE -->
   <div class="transcribe-wrap">
     <button class="btn-transcribe" id="btn-transcribe" disabled>
       𝄞 &nbsp; Transcribe to Sheet Music
     </button>
   </div>
 
-  <!-- ERROR -->
   <div class="error-box" id="error-box">
     <div class="error-title">⚠ Transcription Error</div>
     <div class="error-msg" id="error-msg"></div>
   </div>
 
-  <!-- PROCESSING -->
   <section class="processing-section" id="processing-section">
     <div class="section-label">Processing</div>
     <div class="waveform-display" id="waveform"></div>
@@ -311,7 +308,7 @@
     <div class="processing-message" id="processing-msg">Uploading audio file…</div>
   </section>
 
-  <!-- RESULTS -->
+  <!-- Output Section to view genereted Sheet Music -->
   <section class="results-section" id="results-section">
     <div class="section-label">04 — Your Sheet Music</div>
     <div class="stats-row" id="stats-row"></div>
@@ -338,27 +335,12 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const API_BASE = 'http://localhost:5000'; // Change if hosting remotely
+const API_BASE = 'http://localhost:5000'; 
 let selectedFile = null;
 let currentJobId = null;
 let outputFormat = 'musicxml';
 
-// ── Backend health check ──
-async function checkBackend() {
-  try {
-    const r = await fetch(`${API_BASE}/health`, { signal: AbortSignal.timeout(3000) });
-    const ok = r.ok;
-    document.getElementById('status-dot').className = 'status-dot ' + (ok ? 'online' : 'offline');
-    document.getElementById('status-label').textContent = ok ? 'Backend online' : 'Backend error';
-  } catch {
-    document.getElementById('status-dot').className = 'status-dot offline';
-    document.getElementById('status-label').textContent = 'Backend offline — start server first';
-  }
-}
-checkBackend();
-setInterval(checkBackend, 15000);
-
-// ── File upload ──
+// Code to upload an audio file
 const uploadZone = document.getElementById('upload-zone');
 const fileInput  = document.getElementById('file-input');
 uploadZone.addEventListener('click', () => fileInput.click());
@@ -396,17 +378,6 @@ document.querySelectorAll('#output-format .radio-option').forEach(opt => {
     opt.classList.add('selected');
     outputFormat = opt.dataset.val;
   });
-});
-
-// ── Advanced panel ──
-document.getElementById('advanced-toggle').addEventListener('click', () => {
-  document.getElementById('advanced-panel').classList.toggle('open');
-});
-document.getElementById('onset-thresh').addEventListener('input', e => {
-  document.getElementById('onset-val').textContent = parseFloat(e.target.value).toFixed(2);
-});
-document.getElementById('frame-thresh').addEventListener('input', e => {
-  document.getElementById('frame-val').textContent = parseFloat(e.target.value).toFixed(2);
 });
 
 // ── Waveform ──
@@ -466,7 +437,6 @@ async function runTranscription() {
   formData.append('frame_threshold', document.getElementById('frame-thresh').value);
 
   try {
-    // Show step 1 briefly then step 2 (actual processing happens on server)
     await delay(600);
     setStep(1);
 
@@ -505,7 +475,7 @@ async function runTranscription() {
 async function showResults(data) {
   const meta = data.metadata;
 
-  // Stats
+  // Stats & Notes 
   document.getElementById('stats-row').innerHTML = [
     { val: meta.note_count, label: 'Notes Detected' },
     { val: meta.measure_count, label: 'Measures' },
@@ -513,11 +483,10 @@ async function showResults(data) {
     { val: meta.key, label: 'Key' },
   ].map(s => `<div class="stat-card"><div class="stat-val">${s.val}</div><div class="stat-label">${s.label}</div></div>`).join('');
 
-  // Notes
   document.getElementById('notes-display').innerHTML = (meta.notes_sample || [])
     .map((n, i) => `<span class="note-chip" style="animation-delay:${i * 0.03}s">${n}</span>`).join('');
 
-  // Header
+  // Create Header
   const fname = selectedFile.name.replace(/\.[^.]+$/, '');
   document.getElementById('result-title').textContent = fname;
   document.getElementById('result-key').textContent = 'Key: ' + meta.key;
@@ -586,15 +555,13 @@ function renderStaff(notes, timeSig) {
 
   for (let row = 0; row < rows; row++) {
     const ry = 30 + row * rowH;
-    // 5 staff lines
     for (let l = 0; l < lineCount; l++) {
       const y = ry + staffTop + l * staffSpacing;
       svg += `<line x1="${marginL - 12}" y1="${y}" x2="${W - 10}" y2="${y}" stroke="#333" stroke-width="1.2"/>`;
     }
-    // Treble clef
     svg += `<text x="${marginL - 56}" y="${ry + staffTop + 36}" font-size="52" fill="#111" style="font-family:serif">𝄞</text>`;
 
-    // Time sig
+    // Time Signature
     const [beats] = timeSig === 'auto' ? [4,4] : (timeSig || '4/4').split('/').map(Number);
     const beatVal = timeSig === '6/8' ? 8 : 4;
     svg += `<text x="${marginL + 2}" y="${ry + staffTop + 16}" font-size="15" font-weight="bold" fill="#222">${beats}</text>`;
@@ -616,7 +583,6 @@ function renderStaff(notes, timeSig) {
         const baseNote = note.replace(/b/, '').replace('♭','');
         let ny = ry + staffTop + (NOTE_Y[note] !== undefined ? NOTE_Y[note] / 10 * staffSpacing : 2 * staffSpacing);
 
-        // Ledger line for C4 / middle C
         if (note.startsWith('C4') || note === 'C4') {
           const ledgerY = ry + staffTop + lineCount * staffSpacing + staffSpacing / 2;
           svg += `<line x1="${nx - 5}" y1="${ledgerY}" x2="${nx + 13}" y2="${ledgerY}" stroke="#555" stroke-width="1"/>`;
@@ -626,14 +592,12 @@ function renderStaff(notes, timeSig) {
         const isSharp = note.includes('#');
         if (isSharp) svg += `<text x="${nx - 9}" y="${ny + 4}" font-size="11" fill="#333">♯</text>`;
         svg += `<ellipse cx="${nx + 5}" cy="${ny}" rx="6" ry="4.5" fill="#111" transform="rotate(-18,${nx+5},${ny})"/>`;
-        // Stem direction: up for lower notes
         const stemDir = ny > (ry + staffTop + 2.5 * staffSpacing) ? -1 : 1;
         const stemX = stemDir > 0 ? nx - 1 : nx + 11;
         svg += `<line x1="${stemX}" y1="${ny}" x2="${stemX}" y2="${ny + stemDir * 28}" stroke="#111" stroke-width="1.5"/>`;
       }
     }
 
-    // Final barline for row
     const lastM = Math.min(measPerRow, Math.ceil(notes.length / beatsPerMeasure) - row * measPerRow);
     const fx = marginL + 28 + lastM * measWidth;
     svg += `<line x1="${fx - 4}" y1="${ry + staffTop}" x2="${fx - 4}" y2="${ry + staffTop + (lineCount-1)*staffSpacing}" stroke="#444" stroke-width="1.2"/>`;
