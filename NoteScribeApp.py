@@ -148,3 +148,134 @@ def midi_to_sheet(midi_path: Path, output_dir: Path,
             "notes_sample": note_names[:60],  # first 60 for display
         }
     }
+
+# ──────────────────────────────────────────────
+# ROUTES
+# ──────────────────────────────────────────────
+
+@app.route("/health", methods=["GET"])
+def health():
+    return jsonify({"status": "ok", "service": "NoteScribe"})
+
+
+@app.route("/transcribe", methods=["POST"])
+def transcribe():
+    """
+    Accepts multipart/form-data:
+      - file        : audio file
+      - key_sig     : e.g. "C", "G", "auto"  (default: auto)
+      - time_sig    : e.g. "4/4", "3/4", "auto" (default: auto)
+      - output_format: "musicxml" | "midi" | "pdf" (default: musicxml)
+      - onset_threshold : float 0–1 (default 0.5)
+      - frame_threshold : float 0–1 (default 0.3)
+
+    Returns JSON with metadata + job_id for downloading files.
+    """
+    if "file" not in request.files:
+        return jsonify({"error": "No audio file provided. Use field name 'file'."}), 400
+
+    f = request.files["file"]
+    if not f.filename:
+        return jsonify({"error": "Empty filename."}), 400
+    if not allowed_file(f.filename):
+        return jsonify({"error": f"Unsupported format. Allowed: {ALLOWED_EXTENSIONS}"}), 400
+
+    # Parse options
+    key_sig        = request.form.get("key_sig", "auto")
+    time_sig       = request.form.get("time_sig", "auto")
+    output_format  = request.form.get("output_format", "musicxml")
+    onset_thresh   = float(request.form.get("onset_threshold", 0.5))
+    frame_thresh   = float(request.form.get("frame_threshold", 0.3))
+
+    # Create job directories
+    job_id = str(uuid.uuid4())
+    job_dir = OUTPUT_FOLDER / job_id
+    job_dir.mkdir(parents=True)
+
+    # Save upload
+    suffix = Path(f.filename).suffix.lower()
+    audio_path = UPLOAD_FOLDER / f"{job_id}{suffix}"
+    f.save(str(audio_path))
+    logger.info(f"[{job_id}] Saved upload: {audio_path} ({audio_path.stat().st_size} bytes)")
+
+    try:
+        # Step 1: Audio → MIDI
+        logger.info(f"[{job_id}] Running Basic Pitch…")
+        midi_path = audio_to_midi(audio_path, job_dir, onset_thresh, frame_thresh)
+        logger.info(f"[{job_id}] MIDI saved: {midi_path}")
+
+        # Step 2: MIDI → Sheet Music
+        logger.info(f"[{job_id}] Converting MIDI → sheet music…")
+        result = midi_to_sheet(midi_path, job_dir, key_sig, time_sig, output_format)
+        logger.info(f"[{job_id}] Done. Notes: {result['metadata']['note_count']}")
+
+        return jsonify({
+            "job_id": job_id,
+            "status": "success",
+            "metadata": result["metadata"],
+            "download_urls": {
+                fmt: f"/download/{job_id}/{fmt}"
+                for fmt in result["paths"]
+            }
+        })
+
+    except Exception as e:
+        logger.error(f"[{job_id}] Transcription failed: {traceback.format_exc()}")
+        return jsonify({"error": str(e), "job_id": job_id}), 500
+
+    finally:
+        # Clean up the raw upload
+        try:
+            audio_path.unlink()
+        except Exception:
+            pass
+
+
+@app.route("/download/<job_id>/<fmt>", methods=["GET"])
+def download(job_id: str, fmt: str):
+    """Download a generated file by job_id and format (musicxml | midi | pdf)."""
+    # Safety check — no path traversal
+    if ".." in job_id or "/" in job_id:
+        return jsonify({"error": "Invalid job ID"}), 400
+
+    job_dir = OUTPUT_FOLDER / job_id
+    if not job_dir.exists():
+        return jsonify({"error": "Job not found or expired"}), 404
+
+    ext_map = {"musicxml": ".xml", "midi": ".mid", "pdf": ".pdf"}
+    ext = ext_map.get(fmt)
+    if not ext:
+        return jsonify({"error": f"Unknown format '{fmt}'"}), 400
+
+    candidates = list(job_dir.glob(f"*{ext}"))
+    if not candidates:
+        return jsonify({"error": f"No {fmt} file found for this job"}), 404
+
+    file_path = candidates[0]
+    mime_map = {
+        ".xml": "application/vnd.recordare.musicxml+xml",
+        ".mid": "audio/midi",
+        ".pdf": "application/pdf",
+    }
+    return send_file(
+        str(file_path),
+        mimetype=mime_map.get(ext, "application/octet-stream"),
+        as_attachment=True,
+        download_name=file_path.name,
+    )
+
+
+@app.route("/job/<job_id>", methods=["GET"])
+def job_status(job_id: str):
+    """Check if a job's files still exist."""
+    if ".." in job_id or "/" in job_id:
+        return jsonify({"error": "Invalid job ID"}), 400
+    job_dir = OUTPUT_FOLDER / job_id
+    if not job_dir.exists():
+        return jsonify({"status": "not_found"}), 404
+    files = [f.name for f in job_dir.iterdir()]
+    return jsonify({"status": "exists", "files": files})
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
