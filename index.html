@@ -212,7 +212,7 @@
   </section>
 
   <!-- UPLOAD -->
-  <section class="upload-section" style="margin-bottom:48px">
+  <section class="upload-section" style="margin-bottom:50px">
     <div class="section-label">01 — Upload Audio</div>
     <div class="upload-zone" id="upload-zone">
       <span class="upload-icon">♪</span>
@@ -282,26 +282,6 @@
         </select>
       </div>
     </div>
-
-    <span class="advanced-toggle" id="advanced-toggle">⚙ Advanced Basic Pitch Settings</span>
-    <div class="advanced-panel" id="advanced-panel">
-      <div>
-        <div class="slider-label">
-          <span>Onset Threshold</span>
-          <span id="onset-val">0.50</span>
-        </div>
-        <input type="range" id="onset-thresh" min="0.1" max="0.9" step="0.05" value="0.5">
-        <div class="radio-sub" style="margin-top:6px">Higher = fewer, more confident note onsets</div>
-      </div>
-      <div>
-        <div class="slider-label">
-          <span>Frame Threshold</span>
-          <span id="frame-val">0.30</span>
-        </div>
-        <input type="range" id="frame-thresh" min="0.1" max="0.9" step="0.05" value="0.3">
-        <div class="radio-sub" style="margin-top:6px">Higher = shorter notes, less sustain captured</div>
-      </div>
-    </div>
   </section>
 
   <!-- TRANSCRIBE -->
@@ -354,12 +334,6 @@
     <div class="result-actions" id="result-actions"></div>
   </section>
 </div>
-
-<footer class="container">
-  <div class="footer-brand">𝄞 NoteScribe</div>
-  <div>Powered by Basic Pitch (Spotify) + music21</div>
-  <div>Pipeline: Audio → Pitch → MIDI → MusicXML</div>
-</footer>
 
 <div class="toast" id="toast"></div>
 
