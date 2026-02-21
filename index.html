@@ -933,24 +933,12 @@
     <div class="page-subheading">01 — Upload &amp; Configure</div>
     <h2 class="page-heading">Transcribe <em>your audio</em></h2>
 
-    <!-- Backend status -->
-    <div class="backend-status">
-      <div class="status-dot" id="status-dot"></div>
-      <span id="status-label">Checking backend…</span>
-    </div>
-
     <!-- Upload zone -->
     <div class="upload-zone" id="upload-zone">
       <span class="upload-glyph">♩</span>
       <div class="upload-title">Drop your audio file here</div>
       <p class="upload-sub">or click to browse</p>
-      <div class="upload-formats">
-        <span class="format-badge">MP3</span>
-        <span class="format-badge">WAV</span>
-        <span class="format-badge">M4A</span>
-        <span class="format-badge">OGG</span>
-        <span class="format-badge">FLAC</span>
-      </div>
+      <p class="upload-sub">Accepted files include MP3, WAV, M4A, OGG, FLAC</p>
     </div>
     <input type="file" id="file-input" accept=".mp3,.wav,.m4a,.ogg,.flac,audio/*">
 
@@ -1156,21 +1144,6 @@
   }
   // Set initial active nav
   document.getElementById('nav-home').classList.add('active');
-
-  // ── Backend health check ──
-  async function checkBackend() {
-    try {
-      const r = await fetch(`${API_BASE}/health`, { signal: AbortSignal.timeout(3000) });
-      const ok = r.ok;
-      document.getElementById('status-dot').className = 'status-dot ' + (ok ? 'online' : 'offline');
-      document.getElementById('status-label').textContent = ok ? 'Backend online' : 'Backend error';
-    } catch {
-      document.getElementById('status-dot').className = 'status-dot offline';
-      document.getElementById('status-label').textContent = 'Backend offline — start server first';
-    }
-  }
-  checkBackend();
-  setInterval(checkBackend, 15000);
 
   // ── File upload ──
   const uploadZone = document.getElementById('upload-zone');
