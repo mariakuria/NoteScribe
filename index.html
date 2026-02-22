@@ -315,7 +315,6 @@
     align-items: center;
     gap: 14px;
   }
-  .page-subheading::after { content: ''; flex: 1; height: 1px; background: rgba(112,141,129,0.25); max-width: 300px; }
 
   /* Upload zone */
   .upload-zone {
@@ -478,46 +477,6 @@
   }
   .styled-select:focus { outline: none; border-color: var(--jasmine); }
 
-  /* Advanced */
-  .advanced-toggle {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--teal);
-    cursor: pointer;
-    border: none;
-    background: none;
-    margin-bottom: 12px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: color 0.2s;
-  }
-  .advanced-toggle:hover { color: var(--jasmine); }
-
-  .advanced-panel {
-    display: none;
-    background: rgba(112,141,129,0.04);
-    border: 1px solid rgba(112,141,129,0.2);
-    padding: 22px;
-    margin-bottom: 28px;
-  }
-  .advanced-panel.open { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  .slider-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-  }
-  .slider-val { color: var(--jasmine); }
-  input[type=range] { width: 100%; accent-color: var(--jasmine); cursor: pointer; }
-  .slider-hint { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(112,141,129,0.6); margin-top: 6px; }
-
   /* Transcribe button */
   .transcribe-wrap { text-align: center; margin-bottom: 56px; }
 
@@ -537,40 +496,6 @@
   .btn-transcribe:hover { background: var(--blood); box-shadow: 0 8px 32px rgba(191,6,3,0.4); }
   .btn-transcribe:active { box-shadow: none; }
   .btn-transcribe:disabled { opacity: 0.3; cursor: not-allowed; box-shadow: none; }
-
-  /* Backend status */
-  .backend-status {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    color: var(--teal);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 36px;
-  }
-  .status-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(112,141,129,0.4); }
-  .status-dot.online { background: #4caf7d; box-shadow: 0 0 8px rgba(76,175,125,0.5); }
-  .status-dot.offline { background: var(--brick); box-shadow: 0 0 8px rgba(191,6,3,0.4); }
-
-  /* Error */
-  .error-box {
-    background: rgba(191,6,3,0.08);
-    border: 1px solid rgba(191,6,3,0.4);
-    padding: 18px 22px;
-    margin-bottom: 24px;
-    display: none;
-  }
-  .error-box.show { display: block; }
-  .error-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--brick);
-    margin-bottom: 8px;
-  }
-  .error-msg { font-size: 12px; color: rgba(247,243,236,0.7); line-height: 1.6; }
 
   /* Processing */
   .processing-section { display: none; margin-bottom: 48px; }
@@ -900,7 +825,7 @@
     <div class="home-divider"></div>
 
     <p class="home-description">
-      Transform any melody into beautifully engraved sheet music — instantly.
+      Transform any melody into sheet music.
     </p>
 
     <p class="home-subdesc">
@@ -1004,19 +929,36 @@
       </div>
     </div>
 
+    <!-- Advanced panel -->
+<span class="advanced-toggle" id="advanced-toggle" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:#708d81;cursor:pointer;border-bottom:1px dashed #708d81;display:inline-block;margin-bottom:16px;">
+</span>
+<div id="advanced-panel" style="display:none;background:rgba(112,141,129,0.06);border:1px solid rgba(112,141,129,0.2);padding:20px;margin-bottom:28px;grid-template-columns:1fr 1fr;gap:20px;">
+  <div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#708d81;margin-bottom:8px;display:flex;justify-content:space-between;">
+      <span>Onset Threshold</span><span id="onset-val">0.50</span>
+    </div>
+    <input type="range" id="onset-thresh" min="0.1" max="0.9" step="0.05" value="0.5" style="width:100%;accent-color:#bf0603;">
+  </div>
+  <div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#708d81;margin-bottom:8px;display:flex;justify-content:space-between;">
+      <span>Frame Threshold</span><span id="frame-val">0.30</span>
+    </div>
+    <input type="range" id="frame-thresh" min="0.1" max="0.9" step="0.05" value="0.3" style="width:100%;accent-color:#bf0603;">
+  </div>
+</div>
 
     <!-- Transcribe button -->
     <div class="transcribe-wrap">
       <button class="btn-transcribe" id="btn-transcribe" disabled>
-        𝄞 &nbsp;&nbsp; Transcribe to Sheet Music
+        Transcribe to Sheet Music
       </button>
     </div>
 
-    <!-- Error -->
-    <div class="error-box" id="error-box">
-      <div class="error-title">⚠ Transcription Error</div>
-      <div class="error-msg" id="error-msg"></div>
-    </div>
+  <!-- Error box -->
+  <div id="error-box" style="display:none;background:rgba(191,6,3,0.1);border:1px solid rgba(191,6,3,0.4);padding:20px 24px;margin-bottom:24px;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#ff8a87;margin-bottom:8px;">⚠ Error</div>
+    <div id="error-msg" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ff8a87;white-space:pre-wrap;line-height:1.6;"></div>
+  </div>
 
     <!-- Processing -->
     <section class="processing-section" id="processing-section">
