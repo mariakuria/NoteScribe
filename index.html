@@ -73,12 +73,7 @@
   }
   .nav-link:hover, .nav-link.active { color: var(--jasmine); }
 
-  /* ── HOME PAGE ── */
-  #page-home {
-    background: var(--prussian);
-    position: relative;
-    overflow: hidden;
-  }
+  #page-home { background: var(--prussian); position: relative; overflow: hidden; }
 
   #page-home::before {
     content: '';
@@ -106,10 +101,8 @@
   #page-home::after {
     content: '';
     position: fixed;
-    top: -200px;
-    left: -200px;
-    width: 700px;
-    height: 700px;
+    top: -200px; left: -200px;
+    width: 700px; height: 700px;
     background: radial-gradient(circle, rgba(191,6,3,0.12) 0%, transparent 65%);
     pointer-events: none;
     z-index: 0;
@@ -148,13 +141,11 @@
     opacity: 0;
     animation: fadeUp 0.8s ease 0.4s forwards;
   }
-
   .home-title .word-note { color: var(--jasmine); font-style: italic; }
   .home-title .word-scribe { color: var(--paper); }
 
   .home-divider {
-    width: 1px;
-    height: 60px;
+    width: 1px; height: 60px;
     background: linear-gradient(to bottom, transparent, var(--teal), transparent);
     margin: 32px auto;
     opacity: 0;
@@ -211,7 +202,6 @@
     transition: all 0.2s ease;
   }
   .btn-primary:hover { background: var(--blood); box-shadow: 0 8px 32px rgba(191,6,3,0.4); }
-  .btn-primary span { position: relative; z-index: 1; }
 
   .btn-secondary {
     font-family: 'Syne', sans-serif;
@@ -226,15 +216,11 @@
     cursor: pointer;
     transition: all 0.2s ease;
   }
-  .btn-secondary:hover {
-    background: rgba(244,213,141,0.08);
-    border-color: var(--jasmine);
-  }
+  .btn-secondary:hover { background: rgba(244,213,141,0.08); border-color: var(--jasmine); }
 
   .score-deco {
     position: fixed;
-    bottom: 40px;
-    right: -20px;
+    bottom: 40px; right: -20px;
     font-family: 'Cormorant Garamond', serif;
     font-size: 200px;
     color: rgba(244,213,141,0.04);
@@ -359,17 +345,6 @@
     letter-spacing: 2px;
     color: var(--teal);
     margin-bottom: 20px;
-  }
-  .upload-formats { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
-  .format-badge {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border: 1px solid rgba(112,141,129,0.35);
-    color: var(--teal);
-    background: rgba(112,141,129,0.06);
   }
   #file-input { display: none; }
 
@@ -531,44 +506,14 @@
   .pipeline-step:last-child { border-right: none; }
   .pipeline-step.active { background: rgba(244,213,141,0.06); }
   .pipeline-step.done { background: rgba(112,141,129,0.15); }
-  .step-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 8px;
-    letter-spacing: 2px;
-    color: rgba(112,141,129,0.5);
-    margin-bottom: 6px;
-  }
+  .step-num { font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 2px; color: rgba(112,141,129,0.5); margin-bottom: 6px; }
   .step-icon { font-size: 20px; margin-bottom: 6px; display: block; }
-  .step-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--teal);
-    font-weight: 500;
-  }
+  .step-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal); font-weight: 500; }
   .pipeline-step.done .step-label { color: var(--jasmine); }
 
-  .progress-bar-wrap {
-    height: 2px;
-    background: rgba(112,141,129,0.15);
-    overflow: hidden;
-    margin-bottom: 12px;
-  }
-  .progress-bar {
-    height: 100%;
-    background: linear-gradient(to right, var(--brick), var(--jasmine));
-    width: 0%;
-    transition: width 0.5s ease;
-  }
-  .processing-message {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-align: center;
-    color: var(--teal);
-    min-height: 18px;
-  }
+  .progress-bar-wrap { height: 2px; background: rgba(112,141,129,0.15); overflow: hidden; margin-bottom: 12px; }
+  .progress-bar { height: 100%; background: linear-gradient(to right, var(--brick), var(--jasmine)); width: 0%; transition: width 0.5s ease; }
+  .processing-message { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px; text-align: center; color: var(--teal); min-height: 18px; }
 
   .results-section { display: none; margin-bottom: 64px; }
   .results-section.show { display: block; }
@@ -586,50 +531,15 @@
   }
   .results-label::after { content: ''; flex: 1; height: 1px; background: rgba(112,141,129,0.2); }
 
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    gap: 12px;
-    margin-bottom: 24px;
-  }
+  .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 24px; }
   @media(max-width:600px) { .stats-row { grid-template-columns: 1fr 1fr; } }
 
-  .stat-card {
-    background: rgba(112,141,129,0.06);
-    border: 1px solid rgba(112,141,129,0.2);
-    padding: 18px 14px;
-    text-align: center;
-  }
-  .stat-val {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--jasmine);
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-  .stat-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 8px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--teal);
-  }
+  .stat-card { background: rgba(112,141,129,0.06); border: 1px solid rgba(112,141,129,0.2); padding: 18px 14px; text-align: center; }
+  .stat-val { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 700; color: var(--jasmine); line-height: 1; margin-bottom: 6px; }
+  .stat-label { font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); }
 
-  .notes-display {
-    background: rgba(112,141,129,0.04);
-    border: 1px solid rgba(112,141,129,0.2);
-    padding: 22px;
-    margin-bottom: 20px;
-  }
-  .notes-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 14px;
-  }
+  .notes-display { background: rgba(112,141,129,0.04); border: 1px solid rgba(112,141,129,0.2); padding: 22px; margin-bottom: 20px; }
+  .notes-title { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--teal); margin-bottom: 14px; }
   .notes-scroll { display: flex; gap: 6px; flex-wrap: wrap; }
   .note-chip {
     font-family: 'Cormorant Garamond', serif;
@@ -645,13 +555,7 @@
   }
   @keyframes noteAppear { to { opacity: 1; transform: translateY(0); } }
 
-  .sheet-music-display {
-    background: #f7f4ee;
-    border: 1px solid rgba(112,141,129,0.3);
-    padding: 32px;
-    margin-bottom: 24px;
-    overflow-x: auto;
-  }
+  .sheet-music-display { background: #f7f4ee; border: 1px solid rgba(112,141,129,0.3); padding: 32px; margin-bottom: 24px; overflow-x: auto; }
   .sheet-header { text-align: center; margin-bottom: 24px; border-bottom: 1px solid #ddd; padding-bottom: 18px; }
   .sheet-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: #001427; margin-bottom: 4px; }
   .sheet-subtitle { font-family: 'Syne', sans-serif; font-style: italic; font-size: 11px; color: #888; letter-spacing: 1px; }
@@ -679,8 +583,7 @@
 
   .toast {
     position: fixed;
-    bottom: 28px;
-    right: 28px;
+    bottom: 28px; right: 28px;
     background: rgba(0,20,39,0.95);
     color: var(--paper);
     padding: 12px 20px;
@@ -697,11 +600,7 @@
   .toast.show { transform: translateY(0); opacity: 1; }
 
   /* ── EXAMPLES PAGE ── */
-  #page-examples {
-    background: var(--prussian);
-    min-height: 100vh;
-    padding-top: 80px;
-  }
+  #page-examples { background: var(--prussian); min-height: 100vh; padding-top: 80px; }
 
   #page-examples::before {
     content: '';
@@ -734,7 +633,6 @@
     padding: 56px 32px 80px;
   }
 
-  /* ── EXAMPLE CARDS (replaces old placeholder grid) ── */
   .examples-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -754,17 +652,11 @@
     position: relative;
     transition: border-color 0.2s, background 0.2s;
   }
-  .example-card:hover {
-    border-color: rgba(244,213,141,0.4);
-    background: rgba(244,213,141,0.04);
-  }
-
-  /* Decorative clef watermark per card */
+  .example-card:hover { border-color: rgba(244,213,141,0.4); background: rgba(244,213,141,0.04); }
   .example-card::after {
     content: '𝄞';
     position: absolute;
-    bottom: -10px;
-    right: 6px;
+    bottom: -10px; right: 6px;
     font-family: 'Cormorant Garamond', serif;
     font-size: 80px;
     color: rgba(112,141,129,0.06);
@@ -772,42 +664,13 @@
     line-height: 1;
   }
 
-  .example-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: rgba(112,141,129,0.6);
-  }
-
-  .example-card-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-weight: 600;
-    font-style: italic;
-    color: var(--paper);
-    line-height: 1.2;
-  }
-
-  .example-card-desc {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 1px;
-    color: var(--teal);
-    line-height: 1.6;
-    flex: 1;
-  }
-
-  /* Native audio element — styled to sit within the dark theme */
-  .example-audio {
-    width: 100%;
-    height: 36px;
-  }
+  .example-num { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(112,141,129,0.6); }
+  .example-card-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; font-style: italic; color: var(--paper); line-height: 1.2; }
+  .example-audio { width: 100%; height: 36px; }
 </style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
 <nav>
   <a class="nav-logo" onclick="showPage('home')">
     <span class="nav-logo-glyph">𝄞</span>
@@ -820,49 +683,29 @@
   </div>
 </nav>
 
-<!-- ══════════════════════════════════════
-     HOME PAGE
-══════════════════════════════════════ -->
+<!-- HOME -->
 <div class="page active" id="page-home">
   <div class="home-inner">
     <div class="home-eyebrow">Audio · Pitch Detection · Sheet Music</div>
-
-    <h1 class="home-title">
-      <span class="word-note">Note</span><span class="word-scribe">Scribe</span>
-    </h1>
-
+    <h1 class="home-title"><span class="word-note">Note</span><span class="word-scribe">Scribe</span></h1>
     <div class="home-divider"></div>
-
-    <p class="home-description">
-      Transform any melody into sheet music.
-    </p>
-
+    <p class="home-description">Transform any melody into sheet music.</p>
     <p class="home-subdesc">
       Upload an audio file and NoteScribe uses Spotify's Basic Pitch neural model
       to detect every note, build a MIDI representation, and render publication-ready
       sheet music in MusicXML, MIDI, or PDF.
     </p>
-
     <div class="home-cta-group">
-      <button class="btn-primary" onclick="showPage('transcribe')">
-        <span>Try It Out</span>
-      </button>
-      <button class="btn-secondary" onclick="showPage('examples')">
-        Check Out Examples
-      </button>
+      <button class="btn-primary" onclick="showPage('transcribe')"><span>Try It Out</span></button>
+      <button class="btn-secondary" onclick="showPage('examples')">Check Out Examples</button>
     </div>
   </div>
-
   <div class="score-deco">𝄢</div>
 </div>
 
-
-<!-- ══════════════════════════════════════
-     TRANSCRIBE PAGE
-══════════════════════════════════════ -->
+<!-- TRANSCRIBE -->
 <div class="page" id="page-transcribe">
   <div class="page-inner">
-
     <div class="page-subheading">01 — Upload &amp; Configure</div>
     <h2 class="page-heading">Transcribe <em>your audio</em></h2>
 
@@ -889,28 +732,18 @@
         <div class="radio-group" id="output-format">
           <label class="radio-option selected" data-val="musicxml">
             <span class="radio-dot"></span>
-            <div>
-              <div class="radio-label">MusicXML</div>
-              <div class="radio-sub">MuseScore · Finale · Sibelius</div>
-            </div>
+            <div><div class="radio-label">MusicXML</div><div class="radio-sub">MuseScore · Finale · Sibelius</div></div>
           </label>
           <label class="radio-option" data-val="midi">
             <span class="radio-dot"></span>
-            <div>
-              <div class="radio-label">MIDI</div>
-              <div class="radio-sub">DAWs and digital playback</div>
-            </div>
+            <div><div class="radio-label">MIDI</div><div class="radio-sub">DAWs and digital playback</div></div>
           </label>
           <label class="radio-option" data-val="pdf">
             <span class="radio-dot"></span>
-            <div>
-              <div class="radio-label">PDF</div>
-              <div class="radio-sub">Print-ready (requires MuseScore)</div>
-            </div>
+            <div><div class="radio-label">PDF</div><div class="radio-sub">Print-ready (requires MuseScore)</div></div>
           </label>
         </div>
       </div>
-
       <div class="option-card">
         <div class="option-label">Key Signature</div>
         <select class="styled-select" id="key-sig">
@@ -938,23 +771,17 @@
     <span class="advanced-toggle" id="advanced-toggle" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:#708d81;cursor:pointer;border-bottom:1px dashed #708d81;display:inline-block;margin-bottom:16px;"></span>
     <div id="advanced-panel" style="display:none;background:rgba(112,141,129,0.06);border:1px solid rgba(112,141,129,0.2);padding:20px;margin-bottom:28px;grid-template-columns:1fr 1fr;gap:20px;">
       <div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#708d81;margin-bottom:8px;display:flex;justify-content:space-between;">
-          <span>Onset Threshold</span><span id="onset-val">0.50</span>
-        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#708d81;margin-bottom:8px;display:flex;justify-content:space-between;"><span>Onset Threshold</span><span id="onset-val">0.50</span></div>
         <input type="range" id="onset-thresh" min="0.1" max="0.9" step="0.05" value="0.5" style="width:100%;accent-color:#bf0603;">
       </div>
       <div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#708d81;margin-bottom:8px;display:flex;justify-content:space-between;">
-          <span>Frame Threshold</span><span id="frame-val">0.30</span>
-        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#708d81;margin-bottom:8px;display:flex;justify-content:space-between;"><span>Frame Threshold</span><span id="frame-val">0.30</span></div>
         <input type="range" id="frame-thresh" min="0.1" max="0.9" step="0.05" value="0.3" style="width:100%;accent-color:#bf0603;">
       </div>
     </div>
 
     <div class="transcribe-wrap">
-      <button class="btn-transcribe" id="btn-transcribe" disabled>
-        Transcribe to Sheet Music
-      </button>
+      <button class="btn-transcribe" id="btn-transcribe" disabled>Transcribe to Sheet Music</button>
     </div>
 
     <div id="error-box" style="display:none;background:rgba(191,6,3,0.1);border:1px solid rgba(191,6,3,0.4);padding:20px 24px;margin-bottom:24px;">
@@ -965,26 +792,10 @@
     <section class="processing-section" id="processing-section">
       <div class="waveform-display" id="waveform"></div>
       <div class="pipeline">
-        <div class="pipeline-step" id="step-1">
-          <div class="step-num">01</div>
-          <span class="step-icon">📂</span>
-          <div class="step-label">Upload</div>
-        </div>
-        <div class="pipeline-step" id="step-2">
-          <div class="step-num">02</div>
-          <span class="step-icon">🎵</span>
-          <div class="step-label">Basic Pitch</div>
-        </div>
-        <div class="pipeline-step" id="step-3">
-          <div class="step-num">03</div>
-          <span class="step-icon">🎹</span>
-          <div class="step-label">MIDI</div>
-        </div>
-        <div class="pipeline-step" id="step-4">
-          <div class="step-num">04</div>
-          <span class="step-icon">📄</span>
-          <div class="step-label">Sheet Music</div>
-        </div>
+        <div class="pipeline-step" id="step-1"><div class="step-num">01</div><span class="step-icon">📂</span><div class="step-label">Upload</div></div>
+        <div class="pipeline-step" id="step-2"><div class="step-num">02</div><span class="step-icon">🎵</span><div class="step-label">Basic Pitch</div></div>
+        <div class="pipeline-step" id="step-3"><div class="step-num">03</div><span class="step-icon">🎹</span><div class="step-label">MIDI</div></div>
+        <div class="pipeline-step" id="step-4"><div class="step-num">04</div><span class="step-icon">📄</span><div class="step-label">Sheet Music</div></div>
       </div>
       <div class="progress-bar-wrap"><div class="progress-bar" id="progress-bar"></div></div>
       <div class="processing-message" id="processing-msg">Uploading audio file…</div>
@@ -993,12 +804,10 @@
     <section class="results-section" id="results-section">
       <div class="results-label">Transcription Results</div>
       <div class="stats-row" id="stats-row"></div>
-
       <div class="notes-display">
         <div class="notes-title">Detected Notes</div>
         <div class="notes-scroll" id="notes-display"></div>
       </div>
-
       <div class="sheet-music-display">
         <div class="sheet-header">
           <div class="sheet-title" id="result-title">Transcription</div>
@@ -1011,104 +820,57 @@
         </div>
         <div id="staff-svg-wrap"></div>
       </div>
-
       <div class="result-actions" id="result-actions"></div>
     </section>
-
   </div>
 </div>
 
-
-<!-- ══════════════════════════════════════
-     EXAMPLES PAGE
-══════════════════════════════════════ -->
+<!-- EXAMPLES — only 3 cards -->
 <div class="page" id="page-examples">
   <div class="examples-inner">
-
     <div class="page-subheading">Browse · Listen · Study</div>
     <h2 class="page-heading">Example <em>Transcriptions</em></h2>
+
     <div class="examples-grid">
 
-      <!-- ── EXAMPLE 01 ─────────────────────────────────── -->
+      <!-- 01 -->
       <div class="example-card">
         <div class="example-num">Example · 01</div>
-        <div class="example-card-title">YOUR TITLE HERE</div>
-        <div class="example-card-desc">Short description of this piece</div>
+        <div class="example-card-title">Happy Birthday</div>
         <audio controls class="example-audio">
-          <source src="YOUR_AUDIO_FILE_1.mp3" type="audio/mpeg">
+          <source src="audio/happy_birthday.mp3" type="audio/mpeg">
           Your browser does not support audio playback.
         </audio>
-        <a class="btn-action" href="YOUR_PDF_FILE_1.pdf" download>⬇ Download Sheet Music</a>
+        <a class="btn-action" href="sheets/happy_birthday_sheet.pdf" download>⬇ Download Sheet Music</a>
       </div>
 
-      <!-- ── EXAMPLE 02 ─────────────────────────────────── -->
+      <!-- 02 -->
       <div class="example-card">
         <div class="example-num">Example · 02</div>
-        <div class="example-card-title">YOUR TITLE HERE</div>
-        <div class="example-card-desc">Short description of this piece</div>
+        <div class="example-card-title">Für Elise — Beethoven</div>
         <audio controls class="example-audio">
-          <source src="YOUR_AUDIO_FILE_2.mp3" type="audio/mpeg">
+          <source src="audio/fur_elise.mp3" type="audio/mpeg">
           Your browser does not support audio playback.
         </audio>
-        <a class="btn-action" href="YOUR_PDF_FILE_2.pdf" download>⬇ Download Sheet Music</a>
+        <a class="btn-action" href="sheets/fur_elise_sheet.pdf" download>⬇ Download Sheet Music</a>
       </div>
 
-      <!-- ── EXAMPLE 03 ─────────────────────────────────── -->
+      <!-- 03 -->
       <div class="example-card">
         <div class="example-num">Example · 03</div>
-        <div class="example-card-title">YOUR TITLE HERE</div>
-        <div class="example-card-desc">Short description of this piece</div>
+        <div class="example-card-title">Mia &amp; Sebastian's Theme</div>
         <audio controls class="example-audio">
-          <source src="YOUR_AUDIO_FILE_3.mp3" type="audio/mpeg">
+          <source src="audio/mia_seb.mp3" type="audio/mpeg">
           Your browser does not support audio playback.
         </audio>
-        <a class="btn-action" href="YOUR_PDF_FILE_3.pdf" download>⬇ Download Sheet Music</a>
+        <a class="btn-action" href="sheets/mia_seb_sheet.pdf" download>⬇ Download Sheet Music</a>
       </div>
 
-      <!-- ── EXAMPLE 04 ─────────────────────────────────── -->
-      <div class="example-card">
-        <div class="example-num">Example · 04</div>
-        <div class="example-card-title">YOUR TITLE HERE</div>
-        <div class="example-card-desc">Short description of this piece</div>
-        <audio controls class="example-audio">
-          <source src="YOUR_AUDIO_FILE_4.mp3" type="audio/mpeg">
-          Your browser does not support audio playback.
-        </audio>
-        <a class="btn-action" href="YOUR_PDF_FILE_4.pdf" download>⬇ Download Sheet Music</a>
-      </div>
-
-      <!-- ── EXAMPLE 05 ─────────────────────────────────── -->
-      <div class="example-card">
-        <div class="example-num">Example · 05</div>
-        <div class="example-card-title">YOUR TITLE HERE</div>
-        <div class="example-card-desc">Short description of this piece</div>
-        <audio controls class="example-audio">
-          <source src="YOUR_AUDIO_FILE_5.mp3" type="audio/mpeg">
-          Your browser does not support audio playback.
-        </audio>
-        <a class="btn-action" href="YOUR_PDF_FILE_5.pdf" download>⬇ Download Sheet Music</a>
-      </div>
-
-      <!-- ── EXAMPLE 06 ─────────────────────────────────── -->
-      <div class="example-card">
-        <div class="example-num">Example · 06</div>
-        <div class="example-card-title">YOUR TITLE HERE</div>
-        <div class="example-card-desc">Short description of this piece</div>
-        <audio controls class="example-audio">
-          <source src="YOUR_AUDIO_FILE_6.mp3" type="audio/mpeg">
-          Your browser does not support audio playback.
-        </audio>
-        <a class="btn-action" href="YOUR_PDF_FILE_6.pdf" download>⬇ Download Sheet Music</a>
-      </div>
-
-    </div><!-- /examples-grid -->
+    </div>
   </div>
 </div>
 
-
-<!-- ── TOAST ── -->
 <div class="toast" id="toast"></div>
-
 
 <script>
   const API_BASE = 'http://localhost:5000';
@@ -1192,12 +954,7 @@
 
   function setStep(idx) {
     const steps = ['step-1','step-2','step-3','step-4'];
-    const msgs  = [
-      'Uploading audio to server…',
-      'Running Basic Pitch pitch detection model…',
-      'Quantizing notes into MIDI…',
-      'Engraving sheet music with music21…'
-    ];
+    const msgs  = ['Uploading audio to server…','Running Basic Pitch pitch detection model…','Quantizing notes into MIDI…','Engraving sheet music with music21…'];
     const progresses = [20, 50, 75, 95];
     steps.forEach((id, i) => {
       const el = document.getElementById(id);
@@ -1252,7 +1009,6 @@
 
   async function showResults(data) {
     const meta = data.metadata;
-
     document.getElementById('stats-row').innerHTML = [
       { val: meta.note_count,         label: 'Notes Detected' },
       { val: meta.measure_count,      label: 'Measures' },
