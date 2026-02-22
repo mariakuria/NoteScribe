@@ -18,7 +18,6 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -29,11 +28,9 @@
     overflow-x: hidden;
   }
 
-  /* ── PAGE SYSTEM ── */
   .page { display: none; min-height: 100vh; }
   .page.active { display: block; }
 
-  /* ── SHARED NAV ── */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -83,7 +80,6 @@
     overflow: hidden;
   }
 
-  /* Background score lines */
   #page-home::before {
     content: '';
     position: fixed;
@@ -107,7 +103,6 @@
     z-index: 0;
   }
 
-  /* Ambient glow */
   #page-home::after {
     content: '';
     position: fixed;
@@ -236,7 +231,6 @@
     border-color: var(--jasmine);
   }
 
-  /* Score decoration */
   .score-deco {
     position: fixed;
     bottom: 40px;
@@ -316,7 +310,6 @@
     gap: 14px;
   }
 
-  /* Upload zone */
   .upload-zone {
     border: 1px solid rgba(112,141,129,0.35);
     background: rgba(112,141,129,0.04);
@@ -410,7 +403,6 @@
   }
   .remove-file:hover { background: var(--brick); color: white; border-color: var(--brick); }
 
-  /* Options */
   .options-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -477,7 +469,6 @@
   }
   .styled-select:focus { outline: none; border-color: var(--jasmine); }
 
-  /* Transcribe button */
   .transcribe-wrap { text-align: center; margin-bottom: 56px; }
 
   .btn-transcribe {
@@ -497,7 +488,6 @@
   .btn-transcribe:active { box-shadow: none; }
   .btn-transcribe:disabled { opacity: 0.3; cursor: not-allowed; box-shadow: none; }
 
-  /* Processing */
   .processing-section { display: none; margin-bottom: 48px; }
   .processing-section.show { display: block; }
 
@@ -580,7 +570,6 @@
     min-height: 18px;
   }
 
-  /* Results */
   .results-section { display: none; margin-bottom: 64px; }
   .results-section.show { display: block; }
 
@@ -688,7 +677,6 @@
   .btn-action.primary { background: rgba(191,6,3,0.15); border-color: rgba(191,6,3,0.5); color: #ff8a87; }
   .btn-action.primary:hover { background: var(--brick); color: white; border-color: var(--brick); }
 
-  /* Toast */
   .toast {
     position: fixed;
     bottom: 28px;
@@ -715,6 +703,29 @@
     padding-top: 80px;
   }
 
+  #page-examples::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0px, transparent 42px,
+        rgba(112,141,129,0.07) 42px, rgba(112,141,129,0.07) 43px,
+        transparent 43px, transparent 52px,
+        rgba(112,141,129,0.07) 52px, rgba(112,141,129,0.07) 53px,
+        transparent 53px, transparent 62px,
+        rgba(112,141,129,0.07) 62px, rgba(112,141,129,0.07) 63px,
+        transparent 63px, transparent 72px,
+        rgba(112,141,129,0.07) 72px, rgba(112,141,129,0.07) 73px,
+        transparent 73px, transparent 82px,
+        rgba(112,141,129,0.07) 82px, rgba(112,141,129,0.07) 83px,
+        transparent 83px, transparent 160px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
   .examples-inner {
     position: relative;
     z-index: 1;
@@ -723,76 +734,74 @@
     padding: 56px 32px 80px;
   }
 
-  .examples-coming-soon {
-    margin-top: 48px;
+  /* ── EXAMPLE CARDS (replaces old placeholder grid) ── */
+  .examples-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 24px;
+    margin-top: 48px;
   }
-  @media(max-width:700px) { .examples-coming-soon { grid-template-columns: 1fr; } }
+  @media(max-width:800px) { .examples-grid { grid-template-columns: 1fr 1fr; } }
+  @media(max-width:500px) { .examples-grid { grid-template-columns: 1fr; } }
 
-  .example-placeholder {
-    border: 1px solid rgba(112,141,129,0.2);
+  .example-card {
+    border: 1px solid rgba(112,141,129,0.25);
     background: rgba(112,141,129,0.04);
-    padding: 36px 24px;
-    text-align: center;
+    padding: 28px 22px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     position: relative;
-    overflow: hidden;
+    transition: border-color 0.2s, background 0.2s;
   }
-  .example-placeholder::before {
+  .example-card:hover {
+    border-color: rgba(244,213,141,0.4);
+    background: rgba(244,213,141,0.04);
+  }
+
+  /* Decorative clef watermark per card */
+  .example-card::after {
     content: '𝄞';
     position: absolute;
-    bottom: -16px;
-    right: -8px;
+    bottom: -10px;
+    right: 6px;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 96px;
-    color: rgba(112,141,129,0.07);
+    font-size: 80px;
+    color: rgba(112,141,129,0.06);
     pointer-events: none;
     line-height: 1;
   }
 
-  .placeholder-type {
+  .example-num {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 8px;
+    font-size: 9px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 14px;
-    display: inline-block;
-    border: 1px solid rgba(112,141,129,0.25);
-    padding: 4px 10px;
+    color: rgba(112,141,129,0.6);
   }
 
-  .placeholder-title {
+  .example-card-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: 22px;
     font-weight: 600;
     font-style: italic;
-    color: rgba(247,243,236,0.5);
-    margin-bottom: 8px;
+    color: var(--paper);
+    line-height: 1.2;
   }
 
-  .placeholder-desc {
+  .example-card-desc {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
     letter-spacing: 1px;
-    color: rgba(112,141,129,0.5);
+    color: var(--teal);
     line-height: 1.6;
+    flex: 1;
   }
 
-  .placeholder-mini-staff {
-    height: 40px;
-    border: 1px solid rgba(112,141,129,0.15);
-    margin: 16px 0;
-    position: relative;
-    overflow: hidden;
-  }
-  .placeholder-mini-staff::before {
-    content: '';
-    position: absolute;
-    left: 0; right: 0;
-    top: 25%; bottom: 75%;
-    background: rgba(112,141,129,0.15);
+  /* Native audio element — styled to sit within the dark theme */
+  .example-audio {
+    width: 100%;
+    height: 36px;
   }
 </style>
 </head>
@@ -842,7 +851,6 @@
         Check Out Examples
       </button>
     </div>
-
   </div>
 
   <div class="score-deco">𝄢</div>
@@ -858,7 +866,6 @@
     <div class="page-subheading">01 — Upload &amp; Configure</div>
     <h2 class="page-heading">Transcribe <em>your audio</em></h2>
 
-    <!-- Upload zone -->
     <div class="upload-zone" id="upload-zone">
       <span class="upload-glyph">♩</span>
       <div class="upload-title">Drop your audio file here</div>
@@ -876,7 +883,6 @@
       <button class="remove-file" id="remove-file" title="Remove">✕</button>
     </div>
 
-    <!-- Options -->
     <div class="options-row">
       <div class="option-card">
         <div class="option-label">Output Format</div>
@@ -929,38 +935,33 @@
       </div>
     </div>
 
-    <!-- Advanced panel -->
-<span class="advanced-toggle" id="advanced-toggle" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:#708d81;cursor:pointer;border-bottom:1px dashed #708d81;display:inline-block;margin-bottom:16px;">
-</span>
-<div id="advanced-panel" style="display:none;background:rgba(112,141,129,0.06);border:1px solid rgba(112,141,129,0.2);padding:20px;margin-bottom:28px;grid-template-columns:1fr 1fr;gap:20px;">
-  <div>
-    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#708d81;margin-bottom:8px;display:flex;justify-content:space-between;">
-      <span>Onset Threshold</span><span id="onset-val">0.50</span>
+    <span class="advanced-toggle" id="advanced-toggle" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:#708d81;cursor:pointer;border-bottom:1px dashed #708d81;display:inline-block;margin-bottom:16px;"></span>
+    <div id="advanced-panel" style="display:none;background:rgba(112,141,129,0.06);border:1px solid rgba(112,141,129,0.2);padding:20px;margin-bottom:28px;grid-template-columns:1fr 1fr;gap:20px;">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#708d81;margin-bottom:8px;display:flex;justify-content:space-between;">
+          <span>Onset Threshold</span><span id="onset-val">0.50</span>
+        </div>
+        <input type="range" id="onset-thresh" min="0.1" max="0.9" step="0.05" value="0.5" style="width:100%;accent-color:#bf0603;">
+      </div>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#708d81;margin-bottom:8px;display:flex;justify-content:space-between;">
+          <span>Frame Threshold</span><span id="frame-val">0.30</span>
+        </div>
+        <input type="range" id="frame-thresh" min="0.1" max="0.9" step="0.05" value="0.3" style="width:100%;accent-color:#bf0603;">
+      </div>
     </div>
-    <input type="range" id="onset-thresh" min="0.1" max="0.9" step="0.05" value="0.5" style="width:100%;accent-color:#bf0603;">
-  </div>
-  <div>
-    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#708d81;margin-bottom:8px;display:flex;justify-content:space-between;">
-      <span>Frame Threshold</span><span id="frame-val">0.30</span>
-    </div>
-    <input type="range" id="frame-thresh" min="0.1" max="0.9" step="0.05" value="0.3" style="width:100%;accent-color:#bf0603;">
-  </div>
-</div>
 
-    <!-- Transcribe button -->
     <div class="transcribe-wrap">
       <button class="btn-transcribe" id="btn-transcribe" disabled>
         Transcribe to Sheet Music
       </button>
     </div>
 
-  <!-- Error box -->
-  <div id="error-box" style="display:none;background:rgba(191,6,3,0.1);border:1px solid rgba(191,6,3,0.4);padding:20px 24px;margin-bottom:24px;">
-    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#ff8a87;margin-bottom:8px;">⚠ Error</div>
-    <div id="error-msg" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ff8a87;white-space:pre-wrap;line-height:1.6;"></div>
-  </div>
+    <div id="error-box" style="display:none;background:rgba(191,6,3,0.1);border:1px solid rgba(191,6,3,0.4);padding:20px 24px;margin-bottom:24px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#ff8a87;margin-bottom:8px;">⚠ Error</div>
+      <div id="error-msg" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ff8a87;white-space:pre-wrap;line-height:1.6;"></div>
+    </div>
 
-    <!-- Processing -->
     <section class="processing-section" id="processing-section">
       <div class="waveform-display" id="waveform"></div>
       <div class="pipeline">
@@ -989,7 +990,6 @@
       <div class="processing-message" id="processing-msg">Uploading audio file…</div>
     </section>
 
-    <!-- Results -->
     <section class="results-section" id="results-section">
       <div class="results-label">Transcription Results</div>
       <div class="stats-row" id="stats-row"></div>
@@ -1028,40 +1028,92 @@
     <div class="page-subheading">Browse · Listen · Study</div>
     <h2 class="page-heading">Example <em>Transcriptions</em></h2>
 
-    <div class="examples-coming-soon">
-      <!-- fill withwith real examples later -->
-      <div class="example-placeholder">
-        <span class="placeholder-title">Example 01</span>
-        <div class="placeholder-mini-staff"></div>
-        <div class="placeholder-desc">Coming soon</div>
-      </div>
-      <div class="example-placeholder">
-        <span class="placeholder-title">Example 02</span>
-        <div class="placeholder-mini-staff"></div>
-        <div class="placeholder-desc">Coming soon</div>
-      </div>
-      <div class="example-placeholder">
-        <span class="placeholder-title">Example 03</span>
-        <div class="placeholder-mini-staff"></div>
-        <div class="placeholder-desc">Coming soon</div>
-      </div>
-      <div class="example-placeholder">
-        <span class="placeholder-title">Example 04</span>
-        <div class="placeholder-mini-staff"></div>
-        <div class="placeholder-desc">Coming soon</div>
-      </div>
-      <div class="example-placeholder">
-        <span class="placeholder-title">Example 05</span>
-        <div class="placeholder-mini-staff"></div>
-        <div class="placeholder-desc">Coming soon</div>
-      </div>
-      <div class="example-placeholder">
-        <span class="placeholder-title">Example 06</span>
-        <div class="placeholder-mini-staff"></div>
-        <div class="placeholder-desc">Coming soon</div>
-      </div>
-    </div>
+    <!--
+    ╔══════════════════════════════════════════════════════════╗
+    ║  HOW TO ADD YOUR FILES                                   ║
+    ║  For each card below:                                    ║
+    ║    1. Replace YOUR_AUDIO_FILE_N.mp3  with your mp3 path ║
+    ║    2. Replace YOUR_PDF_FILE_N.pdf    with your pdf path  ║
+    ║    3. Update the title and description text              ║
+    ║  Paths can be relative (e.g. "audio/piece1.mp3") or     ║
+    ║  absolute URLs.  Add/remove cards as needed.             ║
+    ╚══════════════════════════════════════════════════════════╝
+    -->
+    <div class="examples-grid">
 
+      <!-- ── EXAMPLE 01 ─────────────────────────────────── -->
+      <div class="example-card">
+        <div class="example-num">Example · 01</div>
+        <div class="example-card-title">YOUR TITLE HERE</div>
+        <div class="example-card-desc">Short description of this piece</div>
+        <audio controls class="example-audio">
+          <source src="YOUR_AUDIO_FILE_1.mp3" type="audio/mpeg">
+          Your browser does not support audio playback.
+        </audio>
+        <a class="btn-action" href="YOUR_PDF_FILE_1.pdf" download>⬇ Download Sheet Music</a>
+      </div>
+
+      <!-- ── EXAMPLE 02 ─────────────────────────────────── -->
+      <div class="example-card">
+        <div class="example-num">Example · 02</div>
+        <div class="example-card-title">YOUR TITLE HERE</div>
+        <div class="example-card-desc">Short description of this piece</div>
+        <audio controls class="example-audio">
+          <source src="YOUR_AUDIO_FILE_2.mp3" type="audio/mpeg">
+          Your browser does not support audio playback.
+        </audio>
+        <a class="btn-action" href="YOUR_PDF_FILE_2.pdf" download>⬇ Download Sheet Music</a>
+      </div>
+
+      <!-- ── EXAMPLE 03 ─────────────────────────────────── -->
+      <div class="example-card">
+        <div class="example-num">Example · 03</div>
+        <div class="example-card-title">YOUR TITLE HERE</div>
+        <div class="example-card-desc">Short description of this piece</div>
+        <audio controls class="example-audio">
+          <source src="YOUR_AUDIO_FILE_3.mp3" type="audio/mpeg">
+          Your browser does not support audio playback.
+        </audio>
+        <a class="btn-action" href="YOUR_PDF_FILE_3.pdf" download>⬇ Download Sheet Music</a>
+      </div>
+
+      <!-- ── EXAMPLE 04 ─────────────────────────────────── -->
+      <div class="example-card">
+        <div class="example-num">Example · 04</div>
+        <div class="example-card-title">YOUR TITLE HERE</div>
+        <div class="example-card-desc">Short description of this piece</div>
+        <audio controls class="example-audio">
+          <source src="YOUR_AUDIO_FILE_4.mp3" type="audio/mpeg">
+          Your browser does not support audio playback.
+        </audio>
+        <a class="btn-action" href="YOUR_PDF_FILE_4.pdf" download>⬇ Download Sheet Music</a>
+      </div>
+
+      <!-- ── EXAMPLE 05 ─────────────────────────────────── -->
+      <div class="example-card">
+        <div class="example-num">Example · 05</div>
+        <div class="example-card-title">YOUR TITLE HERE</div>
+        <div class="example-card-desc">Short description of this piece</div>
+        <audio controls class="example-audio">
+          <source src="YOUR_AUDIO_FILE_5.mp3" type="audio/mpeg">
+          Your browser does not support audio playback.
+        </audio>
+        <a class="btn-action" href="YOUR_PDF_FILE_5.pdf" download>⬇ Download Sheet Music</a>
+      </div>
+
+      <!-- ── EXAMPLE 06 ─────────────────────────────────── -->
+      <div class="example-card">
+        <div class="example-num">Example · 06</div>
+        <div class="example-card-title">YOUR TITLE HERE</div>
+        <div class="example-card-desc">Short description of this piece</div>
+        <audio controls class="example-audio">
+          <source src="YOUR_AUDIO_FILE_6.mp3" type="audio/mpeg">
+          Your browser does not support audio playback.
+        </audio>
+        <a class="btn-action" href="YOUR_PDF_FILE_6.pdf" download>⬇ Download Sheet Music</a>
+      </div>
+
+    </div><!-- /examples-grid -->
   </div>
 </div>
 
@@ -1076,7 +1128,6 @@
   let currentJobId = null;
   let outputFormat = 'musicxml';
 
-  // ── Page routing ──
   function showPage(name) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
@@ -1084,10 +1135,8 @@
     document.getElementById('nav-' + name).classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-  // Set initial active nav
   document.getElementById('nav-home').classList.add('active');
 
-  // ── File upload ──
   const uploadZone = document.getElementById('upload-zone');
   const fileInput  = document.getElementById('file-input');
   uploadZone.addEventListener('click', () => fileInput.click());
@@ -1121,7 +1170,6 @@
     return (b/1048576).toFixed(2) + ' MB';
   }
 
-  // ── Radio options ──
   document.querySelectorAll('#output-format .radio-option').forEach(opt => {
     opt.addEventListener('click', () => {
       document.querySelectorAll('#output-format .radio-option').forEach(o => o.classList.remove('selected'));
@@ -1130,9 +1178,9 @@
     });
   });
 
-  // ── Advanced panel ──
   document.getElementById('advanced-toggle').addEventListener('click', () => {
-    document.getElementById('advanced-panel').classList.toggle('open');
+    const panel = document.getElementById('advanced-panel');
+    panel.style.display = panel.style.display === 'none' ? 'grid' : 'none';
   });
   document.getElementById('onset-thresh').addEventListener('input', e => {
     document.getElementById('onset-val').textContent = parseFloat(e.target.value).toFixed(2);
@@ -1141,7 +1189,6 @@
     document.getElementById('frame-val').textContent = parseFloat(e.target.value).toFixed(2);
   });
 
-  // ── Waveform ──
   function buildWaveform() {
     const wf = document.getElementById('waveform');
     wf.innerHTML = '';
@@ -1155,7 +1202,6 @@
     }
   }
 
-  // ── Steps ──
   function setStep(idx) {
     const steps = ['step-1','step-2','step-3','step-4'];
     const msgs  = [
@@ -1175,13 +1221,12 @@
     document.getElementById('processing-msg').textContent = msgs[idx];
   }
 
-  // ── Main transcription ──
   document.getElementById('btn-transcribe').addEventListener('click', runTranscription);
 
   async function runTranscription() {
     if (!selectedFile) return;
     const errorBox = document.getElementById('error-box');
-    errorBox.classList.remove('show');
+    errorBox.style.display = 'none';
     document.getElementById('btn-transcribe').disabled = true;
     document.getElementById('processing-section').classList.add('show');
     document.getElementById('results-section').classList.remove('show');
@@ -1209,7 +1254,7 @@
     } catch (err) {
       console.error(err);
       document.getElementById('error-msg').textContent = err.message + '\n\nMake sure the Python backend is running: python app.py';
-      errorBox.classList.add('show');
+      errorBox.style.display = 'block';
       document.getElementById('processing-section').classList.remove('show');
       showToast('⚠ Transcription failed');
     } finally {
@@ -1221,10 +1266,10 @@
     const meta = data.metadata;
 
     document.getElementById('stats-row').innerHTML = [
-      { val: meta.note_count,        label: 'Notes Detected' },
-      { val: meta.measure_count,     label: 'Measures' },
+      { val: meta.note_count,         label: 'Notes Detected' },
+      { val: meta.measure_count,      label: 'Measures' },
       { val: meta.tempo_bpm + ' BPM', label: 'Tempo' },
-      { val: meta.key,               label: 'Key' },
+      { val: meta.key,                label: 'Key' },
     ].map(s => `<div class="stat-card"><div class="stat-val">${s.val}</div><div class="stat-label">${s.label}</div></div>`).join('');
 
     document.getElementById('notes-display').innerHTML = (meta.notes_sample || [])
@@ -1265,13 +1310,12 @@
     document.getElementById('btn-transcribe').disabled = true;
     document.getElementById('processing-section').classList.remove('show');
     document.getElementById('results-section').classList.remove('show');
-    document.getElementById('error-box').classList.remove('show');
+    document.getElementById('error-box').style.display = 'none';
     ['step-1','step-2','step-3','step-4'].forEach(id => document.getElementById(id).classList.remove('active','done'));
     document.getElementById('progress-bar').style.width = '0';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // ── SVG staff renderer ──
   function renderStaff(notes, timeSig) {
     const NOTE_Y = {
       'C3':74,'D3':70,'E3':66,'F3':62,'G3':58,'A3':54,'B3':50,
